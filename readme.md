@@ -59,7 +59,7 @@ This library contains the ARKit + CoreLocation framework, as well as a demo appl
 
 2. Copy your newly created 'API key' in the this file (https://github.com/Itchy-Fingerz/wrld-ARKit-CoreLocation/blob/master/ARKit%2BCoreLocation/Wrld3dNetworkLayer.swift#L29)
 
-3. Go to the 'Places Designer' (Link given in the Left Menu of Wrld3d Developers dashboard ) and create POI's according to the documentation given in the wrld3d developers dashboard.
+3. Go to the 'Places Designer' (https://mapdesigner.wrld3d.com/poi/latest) and create POI's according to the documentation given in the wrld3d developers dashboard.
 
 ### Quick start guide
 
