@@ -18,9 +18,6 @@ The potential for combining these technologies is huge, with so many potential a
 
 The improved location accuracy is currently in an “experimental” phase, but could be the most important component.
 
-Because there’s still work to be done there, and in other areas, this project will best be served by an open community, more than what GitHub Issues would allow us. So I’m opening up a Slack group that anyone can join, to discuss the library, improvements to it, and their own work.
-
-**[Join the Slack community](https://join.slack.com/t/arcl-dev/shared_invite/MjE4NTQ3NzE3MzgxLTE1MDExNTAzMTUtMTIyMmNlMTkyYg)**
 
 ## Requirements
 ARKit requires iOS 11, and supports the following devices:
@@ -32,7 +29,7 @@ ARKit requires iOS 11, and supports the following devices:
 iOS 11 can be downloaded from Apple’s Developer website.
 
 ## Usage
-This library contains the ARKit + CoreLocation framework, as well as a demo application similar to [Demo 1](https://twitter.com/AndrewProjDent/status/886916872683343872).
+This library contains the ARKit + CoreLocation framework, as well as a demo application.
 
 [Be sure to read the section on True North calibration.](#true-north-calibration)
 
