@@ -1,4 +1,8 @@
-![ARKit + CoreLocation](https://github.com/ProjectDent/ARKit-CoreLocation/blob/master/arkit.png)
+<a href="https://www.wrld3d.com/">
+<img src="https://cdn2.wrld3d.com/wp-content/uploads/2017/04/WRLD_Blue.png"  align="right" height="80px" />
+</a>
+
+**Wrld3d**: Uses to create Point of Interets(POI's) which can be viewed in Arkit.
 
 **ARKit**: Uses camera and motion data to map out the local world as you move around.
 
@@ -36,6 +40,7 @@ This library contains the ARKit + CoreLocation framework, as well as a demo appl
 1. Add to your podfile:
 
 `pod 'ARCL'`
+`pod 'Alamofire'`
 
 2. In Terminal, navigate to your project folder, then:
 
@@ -50,7 +55,17 @@ This library contains the ARKit + CoreLocation framework, as well as a demo appl
 2. Import ARKit, SceneKit, CoreLocation and MapKit.
 3. Add `NSCameraUsageDescription` and `NSLocationWhenInUseUsageDescription` to plist with a brief explanation (see demo project for an example)
 
+
+### Wrld3d quick start guide
+
+1. Create an 'API key' with wrld3d (https://www.wrld3d.com) or signup if you dont have an account yet.
+
+2. Copy your newly created 'API key' in the this file (https://github.com/Itchy-Fingerz/wrld-ARKit-CoreLocation/blob/master/ARKit%2BCoreLocation/Wrld3dNetworkLayer.swift#L29)
+
+3. Go to the 'Places Designer' (Link given in the Left Menu of Wrld3d Developers dashboard ) and create POI's according to the documentation given in the wrld3d developers dashboard.
+
 ### Quick start guide
+
 To place a pin over a building, for example Canary Wharf in London, we’ll use the main class that ARCL is built around - `SceneLocationView`.
 
 First, import ARCL and CoreLocation, then declare SceneLocationView as a property:
@@ -60,7 +75,7 @@ import ARCL
 import CoreLocation
 
 class ViewController: UIViewController {
-  var sceneLocationView = SceneLocationView()
+var sceneLocationView = SceneLocationView()
 }
 ```
 
@@ -68,10 +83,10 @@ You should call `sceneLocationView.run()` whenever it’s in focus, and `sceneLo
 
 ```
 override func viewDidLoad() {
-  super.viewDidLoad()
+super.viewDidLoad()
 
-  sceneLocationView.run()
-  view.addSubview(sceneLocationView)
+sceneLocationView.run()
+view.addSubview(sceneLocationView)
 }
 ```
 
@@ -136,3 +151,5 @@ For example, one technique could be to look at recent location data, translate e
 Library created by [@AndrewProjDent](https://twitter.com/andrewprojdent), but a community effort from here on.
 
 Available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+

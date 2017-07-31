@@ -1,9 +1,13 @@
 PODS:
+  - Alamofire (4.5.0)
+  - ARCL (1.0)
   - CocoaLumberjack/Default (3.2.0)
   - CocoaLumberjack/Swift (3.2.0):
     - CocoaLumberjack/Default
 
 DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - ARCL
   - CocoaLumberjack/Swift (from `https://github.com/CocoaLumberjack/CocoaLumberjack`, branch `master`)
 
 EXTERNAL SOURCES:
@@ -13,12 +17,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaLumberjack:
-    :commit: acc32864538c5d75b41a4bfa364b1431cf89954d
+    :commit: d9bed4d739d47fee8f17ae918a0665829f2f1736
     :git: https://github.com/CocoaLumberjack/CocoaLumberjack
 
 SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  ARCL: 029b600f759b177e6a4a3d4c7cf2f11f4b9b291c
   CocoaLumberjack: 0d8cb05e834c1b391771fb3397d9a553accd33a9
 
-PODFILE CHECKSUM: f30003826c2b1846deeada8953262e479b5d4825
+PODFILE CHECKSUM: dd9bd7ffd47e29a03a4fb6dba9adeec12adcae65
 
 COCOAPODS: 1.2.1

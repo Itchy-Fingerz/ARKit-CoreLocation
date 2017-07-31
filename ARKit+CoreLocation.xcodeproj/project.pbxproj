@@ -21,6 +21,8 @@
 		49A3FC031F09BADB00AA59C8 /* FloatingPoint+Radians.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A3FC021F09BADB00AA59C8 /* FloatingPoint+Radians.swift */; };
 		49A3FC051F0A423800AA59C8 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A3FC041F0A423800AA59C8 /* CGPoint+Extensions.swift */; };
 		49D206F31F124BDD00D7D622 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D206F21F124BDD00D7D622 /* SCNNode+Extensions.swift */; };
+		58C70A3D1F2F6F96002ED542 /* Wrld3dNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C70A3B1F2F6F96002ED542 /* Wrld3dNetworkLayer.swift */; };
+		58C70A3E1F2F6F96002ED542 /* PointOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C70A3C1F2F6F96002ED542 /* PointOfInterest.swift */; };
 		71B6A9EDA814C7F42DF123D9 /* Pods_ARKit_CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C10523EF85AA6B7CDF962AD /* Pods_ARKit_CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		49A3FC021F09BADB00AA59C8 /* FloatingPoint+Radians.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+Radians.swift"; sourceTree = "<group>"; };
 		49A3FC041F0A423800AA59C8 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		49D206F21F124BDD00D7D622 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
+		58C70A3B1F2F6F96002ED542 /* Wrld3dNetworkLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrld3dNetworkLayer.swift; sourceTree = "<group>"; };
+		58C70A3C1F2F6F96002ED542 /* PointOfInterest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointOfInterest.swift; sourceTree = "<group>"; };
 		6C10523EF85AA6B7CDF962AD /* Pods_ARKit_CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARKit_CoreLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A967016A4C9D5DA8BF8AE438 /* Pods-ARKit+CoreLocation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKit+CoreLocation.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARKit+CoreLocation/Pods-ARKit+CoreLocation.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +86,8 @@
 				49A3FBF31F099A4A00AA59C8 /* Source */,
 				49A3FBDB1F09988100AA59C8 /* AppDelegate.swift */,
 				49A3FBDF1F09988100AA59C8 /* ViewController.swift */,
+				58C70A3B1F2F6F96002ED542 /* Wrld3dNetworkLayer.swift */,
+				58C70A3C1F2F6F96002ED542 /* PointOfInterest.swift */,
 				49A3FBE41F09988100AA59C8 /* Assets.xcassets */,
 				49A3FBE61F09988100AA59C8 /* LaunchScreen.storyboard */,
 				49A3FBE91F09988100AA59C8 /* Info.plist */,
@@ -158,6 +164,7 @@
 				TargetAttributes = {
 					49A3FBD71F09988100AA59C8 = {
 						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -249,7 +256,9 @@
 				49A3FC031F09BADB00AA59C8 /* FloatingPoint+Radians.swift in Sources */,
 				49A3FBFF1F09B1D200AA59C8 /* LocationNode.swift in Sources */,
 				49A3FBFD1F09B00400AA59C8 /* CLLocation+Extensions.swift in Sources */,
+				58C70A3D1F2F6F96002ED542 /* Wrld3dNetworkLayer.swift in Sources */,
 				49A3FC051F0A423800AA59C8 /* CGPoint+Extensions.swift in Sources */,
+				58C70A3E1F2F6F96002ED542 /* PointOfInterest.swift in Sources */,
 				49A3FBE01F09988100AA59C8 /* ViewController.swift in Sources */,
 				4901EF051F1B7D560067870D /* SceneLocationEstimate+Extensions.swift in Sources */,
 				49A3FC011F09B9CF00AA59C8 /* SceneLocationEstimate.swift in Sources */,
@@ -381,11 +390,15 @@
 			baseConfigurationReference = 38104A8494954E9B79241EAE /* Pods-ARKit+CoreLocation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "ARKit+CoreLocation/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ProjectDent.ARKit-CoreLocation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -396,11 +409,14 @@
 			baseConfigurationReference = A967016A4C9D5DA8BF8AE438 /* Pods-ARKit+CoreLocation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "ARKit+CoreLocation/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ProjectDent.ARKit-CoreLocation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

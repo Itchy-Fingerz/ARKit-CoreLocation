@@ -11,7 +11,8 @@ import SceneKit
 import MapKit
 import CocoaLumberjack
 
-class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDelegate, Wrld3dNetworkLayerDelegate {
+    
     let sceneLocationView = SceneLocationView()
     
     let mapView = MKMapView()
@@ -37,8 +38,13 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     
     var adjustNorthByTappingSidesOfScreen = false
     
+    var isPoisCallSent:Bool = false    
+    var networkObj:Wrld3dNetworkLayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       networkObj = Wrld3dNetworkLayer.init(inputDelegate: self)
         
         infoLabel.font = UIFont.systemFont(ofSize: 10)
         infoLabel.textAlignment = .left
@@ -53,24 +59,17 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
             userInfo: nil,
             repeats: true)
         
-        //Set to true to display an arrow which points north.
-        //Checkout the comments in the property description and on the readme on this.
-//        sceneLocationView.orientToTrueNorth = false
+//      Set to true to display an arrow which points north.
+//      Checkout the comments in the property description and on the readme on this.
+//      sceneLocationView.orientToTrueNorth = false
         
-//        sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+//      sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
         sceneLocationView.showAxesNode = true
         sceneLocationView.locationDelegate = self
         
         if displayDebugging {
             sceneLocationView.showFeaturePoints = true
         }
-        
-        //Currently set to Canary Wharf
-        let pinCoordinate = CLLocationCoordinate2D(latitude: 51.504607, longitude: -0.019592)
-        let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: 236)
-        let pinImage = UIImage(named: "pin")!
-        let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
-        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
         
         view.addSubview(sceneLocationView)
         
@@ -134,7 +133,9 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     }
     
     @objc func updateUserLocation() {
+        
         if let currentLocation = sceneLocationView.currentLocation() {
+            
             DispatchQueue.main.async {
                 
                 if let bestEstimate = self.sceneLocationView.bestLocationEstimate(),
@@ -191,6 +192,16 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     }
     
     @objc func updateInfoLabel() {
+        
+        if let currentLocation = sceneLocationView.currentLocation()
+        {
+            if(!isPoisCallSent)
+            {
+                networkObj!.fetchPois(currentLocation:currentLocation)
+                isPoisCallSent = true
+            }
+        }
+        
         if let position = sceneLocationView.currentScenePosition() {
             infoLabel.text = "x: \(String(format: "%.2f", position.x)), y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
         }
@@ -232,9 +243,9 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
                         sceneLocationView.moveSceneHeadingClockwise()
                     } else {
                         let image = UIImage(named: "pin")!
-                        let annotationNode = LocationAnnotationNode(location: nil, image: image)
-                        annotationNode.scaleRelativeToDistance = true
-                        sceneLocationView.addLocationNodeForCurrentPosition(locationNode: annotationNode)
+                        //let annotationNode = LocationAnnotationNode(location: nil, image: image)
+                        //annotationNode.scaleRelativeToDistance = true
+                        //sceneLocationView.addLocationNodeForCurrentPosition(locationNode: annotationNode)
                     }
                 }
             }
@@ -285,6 +296,29 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode) {
         
+    }
+    
+    // MARK: Wrld3dNetworkLayer Delagate
+    
+    func DidReceiveResponse(response:[PointOfInterest]) {
+        
+        for poi in response
+        {
+            DDLogDebug(poi.title!);
+            DDLogDebug(String(poi.lat!));
+            DDLogDebug(String(poi.lon!));
+            
+            let pinCoordinate = CLLocationCoordinate2D(latitude: poi.lat!, longitude:poi.lon!)
+            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: poi.height_offset!)
+            let pinImage = UIImage(named: "pin")!
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
+            sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
+        }
+    }
+    
+    func DidFailedToReceiveResponse(response: String) {
+        
+        DDLogDebug("Did Failed Receive Response Call Back")
     }
 }
 
