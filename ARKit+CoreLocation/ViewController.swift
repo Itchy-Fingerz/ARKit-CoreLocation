@@ -34,12 +34,16 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     
     var infoLabel = UILabel()
     
+    var refreshBtn = UIButton()
+    
     var updateInfoLabelTimer: Timer?
     
     var adjustNorthByTappingSidesOfScreen = false
     
     var isPoisCallSent:Bool = false    
     var networkObj:Wrld3dNetworkLayer?
+    
+    var nodesList:[LocationAnnotationNode] = [LocationAnnotationNode]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +54,14 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
         infoLabel.textAlignment = .left
         infoLabel.textColor = UIColor.white
         infoLabel.numberOfLines = 0
-        sceneLocationView.addSubview(infoLabel)
+//        sceneLocationView.addSubview(infoLabel)
+        
+        refreshBtn.setTitle("Refresh", for: UIControlState.normal)
+        refreshBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        refreshBtn.addTarget(self, action: #selector(ViewController.RefreshPressed), for: UIControlEvents.touchUpInside)
+        refreshBtn.layer.cornerRadius = 5
+        refreshBtn.layer.borderWidth = 1
+        sceneLocationView.addSubview(refreshBtn)
         
         updateInfoLabelTimer = Timer.scheduledTimer(
             timeInterval: 0.1,
@@ -64,7 +75,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
 //      sceneLocationView.orientToTrueNorth = false
         
 //      sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
-        sceneLocationView.showAxesNode = true
+        sceneLocationView.showAxesNode = false
         sceneLocationView.locationDelegate = self
         
         if displayDebugging {
@@ -87,6 +98,25 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
                 repeats: true)
         }
         
+    }
+    
+    @objc func RefreshPressed(){
+    
+        for node in nodesList
+        {
+            sceneLocationView.removeLocationNode(locationNode: node)
+        }
+        nodesList.removeAll();
+        
+        isPoisCallSent = false
+        if let currentLocation = sceneLocationView.currentLocation()
+        {
+            if(!isPoisCallSent)
+            {
+                networkObj!.fetchPois(currentLocation:currentLocation)
+                isPoisCallSent = true
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,11 +143,12 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
             height: self.view.frame.size.height)
         
         infoLabel.frame = CGRect(x: 6, y: 0, width: self.view.frame.size.width - 12, height: 14 * 4)
-        
+        refreshBtn.frame = CGRect(x: 6, y: 0, width: self.view.frame.size.width - 12, height: 14 * 4)
         if showMapView {
             infoLabel.frame.origin.y = (self.view.frame.size.height / 2) - infoLabel.frame.size.height
         } else {
             infoLabel.frame.origin.y = self.view.frame.size.height - infoLabel.frame.size.height
+            refreshBtn.frame.origin.y = self.view.frame.size.height - refreshBtn.frame.size.height
         }
         
         mapView.frame = CGRect(
@@ -313,6 +344,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
             let pinImage = UIImage(named: "pin")!
             let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
+            nodesList.append(pinLocationNode)
         }
     }
     
