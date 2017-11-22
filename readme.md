@@ -18,6 +18,9 @@ The potential for combining these technologies is huge, with so many potential a
 
 The improved location accuracy is currently in an “experimental” phase, but could be the most important component.
 
+Because there’s still work to be done there, and in other areas, this project will best be served by an open community, more than what GitHub Issues would allow us. So I’m opening up a Slack group that anyone can join, to discuss the library, improvements to it, and their own work.
+
+**[Join the Slack community](https://join.slack.com/t/arcl-dev/shared_invite/enQtMjY3NTUyNTUxMDI5LWFhZDM0M2NhZGM5MTFhYjNiOWFhZmIyMmIyNzRjMTkzNjI5ZjQxZTA5MDUwNThjNTEyM2MzODY4NDRiZjBkYWE)**
 
 ## Requirements
 ARKit requires iOS 11, and supports the following devices:
@@ -85,6 +88,12 @@ super.viewDidLoad()
 sceneLocationView.run()
 view.addSubview(sceneLocationView)
 }
+
+override func viewDidLayoutSubviews() {
+  super.viewDidLayoutSubviews()
+  
+  sceneLocationView.frame = view.bounds
+}
 ```
 
 After we’ve called `run()`, we can add our coordinate. ARCL comes with a class called `LocationNode` - an object within the 3D scene which has a real-world location along with a few other properties which allow it to be displayed appropriately within the world. `LocationNode` is a subclass of SceneKit’s `SCNNode`, and can also be subclassed further. For this example we’re going to use a subclass called `LocationAnnotationNode`, which we use to display a 2D image within the world, which always faces us:
@@ -133,6 +142,8 @@ CoreLocation can deliver location updates anywhere from every 1-15 seconds, with
 
 A user may receive a location reading accurate to 4m, then they walk 10m north and receive another location reading accurate to 65m. This 65m-accurate reading is the best that CoreLocation can offer, but knowing the user’s position within the AR scene when they got that 4m reading, and the fact that they’ve walked 10m north through the scene since then, we can translate that data to give them a new coordinate with about 4m of accuracy. This is accurate up to about 100m.
 
+[There is more detail on this on the wiki](https://github.com/ProjectDent/ARKit-CoreLocation/wiki/Current-Location-Accuracy).
+
 ### Issues
 I mentioned this was experimental - currently, ARKit occasionally gets confused as the user is walking through a scene, and may change their position inaccurately. This issue also seems to affect the “euler angles”, or directional information about the device, so after a short distance it may think you’re walking in a different direction.
 
@@ -143,6 +154,11 @@ There are further optimisations to determining a user’s location which can be 
 
 For example, one technique could be to look at recent location data, translate each data point using the user’s travel since then, and use the overlap between the data points to more narrowly determine the user’s possible location.
 
+[There is more detail on this on the wiki](https://github.com/ProjectDent/ARKit-CoreLocation/wiki/Current-Location-Accuracy).
+
+## Going Forward
+
+We have some Milestones and Issues related to them - anyone is welcome to discuss and contribute to them. Pull requests are welcomed. You can discuss new features/enhancements/bugs either by adding a new Issue or via [the Slack community](https://join.slack.com/t/arcl-dev/shared_invite/enQtMjY3NTUyNTUxMDI5LWFhZDM0M2NhZGM5MTFhYjNiOWFhZmIyMmIyNzRjMTkzNjI5ZjQxZTA5MDUwNThjNTEyM2MzODY4NDRiZjBkYWE).
 
 ## Thanks
 Library created by [@AndrewProjDent](https://twitter.com/andrewprojdent), but a community effort from here on.

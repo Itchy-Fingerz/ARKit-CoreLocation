@@ -1,13 +1,14 @@
 //
 //  AppDelegate.swift
-//  ARKit+CoreLocation
+//  ARKit-CoreLocation
 //
-//  Created by Andrew Hart on 02/07/2017.
-//  Copyright © 2017 Project Dent. All rights reserved.
+//  Created by Salman Khalid on 21/11/2017.
+//  Copyright © 2017 Salman Khalid. All rights reserved.
 //
 
 import UIKit
 import CocoaLumberjack
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,9 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window!.makeKeyAndVisible()
         
-        let vc = ViewController()
-        
-        self.window!.rootViewController = vc
+        if #available(iOS 11.0, *) {
+            let vc = ViewController()
+            self.window!.rootViewController = vc
+        } else {
+            self.window!.rootViewController = NotSupportedViewController()
+        }
         
         return true
     }

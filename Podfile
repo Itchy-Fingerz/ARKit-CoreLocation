@@ -3,7 +3,6 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'ARKit+CoreLocation' do
-	pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack', :branch => 'master'
-	pod 'ARCL'
-    pod 'Alamofire', '~> 4.4'    
+    pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack', :branch => 'master'
+    pod 'Alamofire', '~> 4.4'
 end

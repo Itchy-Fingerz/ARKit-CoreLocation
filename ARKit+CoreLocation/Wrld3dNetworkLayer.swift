@@ -26,7 +26,7 @@ class Wrld3dNetworkLayer  {
     let searchtag = "Arkit" // Tag based searched
     let searchRadius = 600  // in meters
     let maximumNoOfResults = 50
-    let apiKey = "" // To be replaced with your own APIKey
+    let apiKey = "f8c03437ab1946430056f62e388b13b3" // To be replaced with your own APIKey
     let minimumpercision = 0.25 // Minimum 'score' to results. the higher the number the fewer results will be matched (default: 0.0)
 //  let latitude = 56.4597156
 //  let longitude = -2.9775496

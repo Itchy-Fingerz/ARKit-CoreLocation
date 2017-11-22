@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import SceneKit 
+import SceneKit
 import MapKit
 import CocoaLumberjack
 
-class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDelegate, Wrld3dNetworkLayerDelegate {
-    
+@available(iOS 11.0, *)
+class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDelegate,Wrld3dNetworkLayerDelegate {
     let sceneLocationView = SceneLocationView()
     
     let mapView = MKMapView()
@@ -40,7 +40,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     
     var adjustNorthByTappingSidesOfScreen = false
     
-    var isPoisCallSent:Bool = false    
+    var isPoisCallSent:Bool = false
     var networkObj:Wrld3dNetworkLayer?
     
     var nodesList:[LocationAnnotationNode] = [LocationAnnotationNode]()
@@ -48,13 +48,13 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       networkObj = Wrld3dNetworkLayer.init(inputDelegate: self)
+        networkObj = Wrld3dNetworkLayer.init(inputDelegate: self)
         
         infoLabel.font = UIFont.systemFont(ofSize: 10)
         infoLabel.textAlignment = .left
         infoLabel.textColor = UIColor.white
         infoLabel.numberOfLines = 0
-//        sceneLocationView.addSubview(infoLabel)
+        //        sceneLocationView.addSubview(infoLabel)
         
         refreshBtn.setTitle("Refresh", for: UIControlState.normal)
         refreshBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
@@ -70,11 +70,11 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
             userInfo: nil,
             repeats: true)
         
-//      Set to true to display an arrow which points north.
-//      Checkout the comments in the property description and on the readme on this.
-//      sceneLocationView.orientToTrueNorth = false
+        //      Set to true to display an arrow which points north.
+        //      Checkout the comments in the property description and on the readme on this.
+        //      sceneLocationView.orientToTrueNorth = false
         
-//      sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+        //      sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
         sceneLocationView.showAxesNode = false
         sceneLocationView.locationDelegate = self
         
@@ -101,7 +101,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     }
     
     @objc func RefreshPressed(){
-    
+        
         for node in nodesList
         {
             sceneLocationView.removeLocationNode(locationNode: node)
@@ -191,7 +191,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
                 UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
                     self.userAnnotation?.coordinate = currentLocation.coordinate
                 }, completion: nil)
-            
+                
                 if self.centerMapOnUserLocation {
                     UIView.animate(withDuration: 0.45, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
                         self.mapView.setCenter(self.userAnnotation!.coordinate, animated: false)
@@ -265,7 +265,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
                 } else {
                     
                     let location = touch.location(in: self.view)
-
+                    
                     if location.x <= 40 && adjustNorthByTappingSidesOfScreen {
                         print("left side of the screen")
                         sceneLocationView.moveSceneHeadingAntiClockwise()
