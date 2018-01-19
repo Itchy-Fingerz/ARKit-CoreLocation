@@ -42,6 +42,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
     
     var isPoisCallSent:Bool = false
     var networkObj:Wrld3dNetworkLayer?
+    let tagIconeMapper : TagIconMapper = TagIconMapper()
     
     var nodesList:[LocationAnnotationNode] = [LocationAnnotationNode]()
     
@@ -341,8 +342,19 @@ class ViewController: UIViewController, MKMapViewDelegate, SceneLocationViewDele
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: poi.lat!, longitude:poi.lon!)
             let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: poi.height_offset!)
-            let pinImage = UIImage(named: "pin")!
-            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
+            var tagsString = ""
+            if poi.tags != nil
+            {
+                tagsString = poi.tags!
+            }
+            var title = ""
+            if poi.title != nil
+            {
+                title = poi.title!
+            }
+            let pinImage = UIImage(named: tagIconeMapper.iConKeyForTag(tagString: tagsString))!
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage,title: title)
+
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
             nodesList.append(pinLocationNode)
         }

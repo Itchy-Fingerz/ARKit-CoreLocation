@@ -10,6 +10,7 @@ import Foundation
 import SceneKit
 import CoreLocation
 
+
 ///A location node can be added to a scene using a coordinate.
 ///Its scale and position should not be adjusted, as these are used for scene layout purposes
 ///To adjust the scale and position of items within a node, you can add them to a child node and adjust them there
@@ -68,23 +69,51 @@ open class LocationAnnotationNode: LocationNode {
     ///For landmarks in the distance, the default is correct
     public var scaleRelativeToDistance = false
     
-    public init(location: CLLocation?, image: UIImage) {
+    public init(location: CLLocation?, image: UIImage, title : String) {
+        let backgroundImage = UIImage(named: "backgroundPin")!
         self.image = image
+        
+        
         
         let plane = SCNPlane(width: image.size.width / 200, height: image.size.height / 200)
         plane.firstMaterial!.diffuse.contents = image
         plane.firstMaterial!.lightingModel = .constant
         
+        let planeNode =  SCNNode()
+        planeNode.geometry = plane
+        planeNode.position = SCNVector3(x: 0 , y:0.1, z: 0)
+
+        
+        let bgPlane = SCNPlane(width: backgroundImage.size.width / 200, height: backgroundImage.size.height / 200)
+        bgPlane.firstMaterial!.diffuse.contents = backgroundImage
+        bgPlane.firstMaterial!.lightingModel = .constant
+        
+        let bgPlaneNode = SCNNode()
+        bgPlaneNode.geometry = bgPlane
+        
+
+        
+        let textGeometry = SCNText(string: title, extrusionDepth: 0.0)
+        textGeometry.font = UIFont(name: "Arial", size: 0.3)
+        textGeometry.firstMaterial!.diffuse.contents = UIColor.white
+        textGeometry.alignmentMode = kCAAlignmentRight
+        let textNode = SCNNode(geometry: textGeometry)
+        textNode.position = SCNVector3(x: 0.6 , y:-1.1, z: 0)
+        
         annotationNode = SCNNode()
-        annotationNode.geometry = plane
+        annotationNode.addChildNode(bgPlaneNode)
+        annotationNode.addChildNode(planeNode)
+        annotationNode.addChildNode(textNode)
+        
+        
         
         super.init(location: location)
-        
         let billboardConstraint = SCNBillboardConstraint()
         billboardConstraint.freeAxes = SCNBillboardAxis.Y
         constraints = [billboardConstraint]
         
         addChildNode(annotationNode)
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {

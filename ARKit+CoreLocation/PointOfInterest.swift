@@ -16,5 +16,6 @@ class PointOfInterest:Codable {
     var lat:Double?
     var lon:Double?
     var height_offset:Double?
+    var tags:String?
     
 }
